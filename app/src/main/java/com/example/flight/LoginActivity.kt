@@ -2,17 +2,13 @@ package com.example.flight
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.example.pruebaslogin.User
-import com.example.pruebaslogin.UserDao
-import com.example.pruebaslogin.UsersDatabase
+import com.example.pruebaslogin.FlightDatabase
 import com.example.pruebaslogin.UsersViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,7 +18,7 @@ import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
 
-    private var db: UsersDatabase? = null
+    private var db: FlightDatabase? = null
     private lateinit var token:String
 
     private lateinit var usersViewModel: UsersViewModel
@@ -66,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
                 token=it.getString("token")
 
                 Observable.fromCallable {
-                    db = UsersDatabase.getInstance(context = this)
+                    db = FlightDatabase.getInstance(context = this)
                     //db?.userDao()?.insert(User("Usuario","user","1234",null,"asdf@asdf.com","asdfasd",""))
                     db?.userDao()?.updateToken(email_login.text.toString(),token)
 

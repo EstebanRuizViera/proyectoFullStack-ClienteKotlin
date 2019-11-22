@@ -6,19 +6,19 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [User::class], version = 1)
-abstract class UsersDatabase : RoomDatabase() {
+abstract class FlightDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
     companion object {
         private const val DATABASE_NAME = "flight"
         @Volatile
-        private var INSTANCE: UsersDatabase? = null
+        private var INSTANCE: FlightDatabase? = null
 
-        fun getInstance(context: Context): UsersDatabase? {
+        fun getInstance(context: Context): FlightDatabase? {
             INSTANCE ?: synchronized(this) {
                 INSTANCE = Room.databaseBuilder(
                     context.applicationContext,
-                    UsersDatabase::class.java,
+                    FlightDatabase::class.java,
                     DATABASE_NAME
                 ).build()
             }

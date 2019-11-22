@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 class UsersRepository(application: Application) {
-    private val userDao: UserDao? = UsersDatabase.getInstance(application)?.userDao()
+    private val userDao: UserDao? = FlightDatabase.getInstance(application)?.userDao()
 
     fun insert(user: User) {
         if (userDao != null) InsertAsyncTask(userDao).execute(user)
