@@ -19,4 +19,7 @@ interface UserDao {
 
     @Query("SELECT name FROM " + User.TABLE_NAME + " WHERE email=:user_email")
     fun getUser(user_email:String):String
+
+    @Query("SELECT * FROM "+ User.TABLE_NAME )
+    fun getUsers(): LiveData<List<User>>
 }

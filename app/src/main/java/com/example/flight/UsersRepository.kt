@@ -12,9 +12,9 @@ class UsersRepository(application: Application) {
         if (userDao != null) InsertAsyncTask(userDao).execute(user)
     }
 
-    /*fun getUsers(): LiveData<List<User>> {
-        return userDao?.getOrderedAgenda() ?: MutableLiveData<List<User>>()
-    }*/
+    fun getUsers(): LiveData<List<User>> {
+        return userDao?.getUsers() ?: MutableLiveData<List<User>>()
+    }
 
     private class InsertAsyncTask(private val userDao: UserDao) :
         AsyncTask<User, Void, Void>() {
