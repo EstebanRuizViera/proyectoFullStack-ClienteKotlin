@@ -10,4 +10,8 @@ class UsersViewModel(application: Application) : AndroidViewModel(application) {
     fun saveUser(user: User) {
         repository.insert(user)
     }
+
+    fun getUser(email_user: String):String {
+        return repository.getUser(email_user)
+    }
 }

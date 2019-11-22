@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.android.volley.Request
 import com.android.volley.Response
@@ -22,16 +23,30 @@ import org.json.JSONObject
 class LoginActivity : AppCompatActivity() {
 
     private var db: UsersDatabase? = null
-    private var genderDao: UserDao? = null
     private lateinit var token:String
+
+    private lateinit var usersViewModel: UsersViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        usersViewModel = run {
+              ViewModelProviders.of(this).get(UsersViewModel::class.java)
+        }
         login_button.setOnClickListener(){
             login()
+
         }
+
+
+
+    }
+
+    private fun addUser() {
+
+        var token:String= usersViewModel.getUser("asdf@asdf.com")
+        Toast.makeText(this, "Token " + token, Toast.LENGTH_LONG).show()
     }
 
     fun login() {
@@ -49,22 +64,15 @@ class LoginActivity : AppCompatActivity() {
             Request.Method.POST, url, loginJsonobj,
             Response.Listener {
                 token=it.getString("token")
-                Toast.makeText(this, "Login succesfull " + token, Toast.LENGTH_SHORT).show()
 
-                var user_name:String=""
-                Observable.fromCallable({
+                Observable.fromCallable {
                     db = UsersDatabase.getInstance(context = this)
-                    db?.userDao()?.insert(User("Usuario","user","1234",null,"asdf@asdf.com","asdfasd",""))
-                    db?.userDao()?.updateToken(email_login.text.toString(),password_login.text.toString())
-                    db?.userDao()?.getUser("asdf@asdf.com")
+                    //db?.userDao()?.insert(User("Usuario","user","1234",null,"asdf@asdf.com","asdfasd",""))
+                    db?.userDao()?.updateToken(email_login.text.toString(),token)
 
-                }).doOnNext({
+                }.doOnNext({}).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
 
-                }).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe()
-                Toast.makeText(this, "Name " + user_name, Toast.LENGTH_SHORT).show()
-
+                addUser()
             },
             Response.ErrorListener {
                 Toast.makeText(this, "email or password wrong !", Toast.LENGTH_SHORT).show()
@@ -72,6 +80,9 @@ class LoginActivity : AppCompatActivity() {
         {}
 
         queue.add(req)
+
+
+
 
     }
 
