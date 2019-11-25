@@ -20,29 +20,11 @@ class AirportRepository(application: Application) {
         return airportDao?.getAirports() ?: MutableLiveData<List<Airport>>()
     }
 
-    fun getAirport(country:String):String {
-
-        if (airportDao != null)
-            return SelectAsyncTask(airportDao!!).execute(country).get()
-        return ""
-    }
-
     private class InsertAsyncTask(private val airportDao: AirportDao) :
         AsyncTask<Airport, Void, Void>() {
         override fun doInBackground(vararg airports: Airport?): Void? {
             for (airport in airports) {
                 if (airport != null) airportDao.insert(airport)
-            }
-            return null
-        }
-    }
-
-    private class SelectAsyncTask(private val airportDao: AirportDao) :
-        AsyncTask<String, Void, String>() {
-        override fun doInBackground(vararg countrys: String?): String? {
-            for (country in countrys) {
-                if (country != null)
-                    return airportDao?.getAirport(country) ?:String.toString()
             }
             return null
         }

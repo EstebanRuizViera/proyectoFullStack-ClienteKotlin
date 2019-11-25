@@ -6,8 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.flight.dao.AirportDao
 import com.example.flight.dao.FlightDao
+import com.example.flight.model.Airport
+import com.example.flight.model.Flight
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class, Flight::class,Airport::class], version = 1, exportSchema = false)
 abstract class FlightDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun flightDao(): FlightDao
@@ -15,7 +17,7 @@ abstract class FlightDatabase : RoomDatabase() {
 
 
     companion object {
-        private const val DATABASE_NAME = "flight"
+        private const val DATABASE_NAME = "flight_ddbb"
         @Volatile
         private var INSTANCE: FlightDatabase? = null
 

@@ -46,7 +46,7 @@ class RegisterActivity : AppCompatActivity() {
             Request.Method.POST, url, loginJsonobj,
             Response.Listener {
 
-                usersViewModel.saveUser(User(name_editText.text.toString(),lastname_editText.text.toString(),dni_editText.text.toString(),null,email_editText.text.toString(),password_editText.text.toString(),""))
+                usersViewModel.saveUser(User(email_editText.text.toString(),""))
 
                 Toast.makeText(this, "Login succesfull ! ", Toast.LENGTH_LONG).show()
             },

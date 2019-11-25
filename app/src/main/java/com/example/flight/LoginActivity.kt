@@ -9,6 +9,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.pruebaslogin.FlightDatabase
+import com.example.pruebaslogin.User
 import com.example.pruebaslogin.UsersViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import org.jetbrains.annotations.NotNull
 
-@Entity(tableName = Flight.TABLE_NAME, indices = [Index(value = ["email"],unique = true)])
+@Entity(tableName = Flight.TABLE_NAME)
 data class Flight(
     @ColumnInfo(name = "empty_seats") @NotNull val name: String,
     @ColumnInfo(name = "lastname") @NotNull val lastName: String,

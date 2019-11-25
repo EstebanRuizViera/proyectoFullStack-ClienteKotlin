@@ -27,7 +27,7 @@ class UsersRepository(application: Application) {
         AsyncTask<User, Void, Void>() {
         override fun doInBackground(vararg users: User?): Void? {
             for (user in users) {
-                if (user != null) userDao.insert(user)
+                if (user!!.email.toString() != null && user!!.token.toString() != null) userDao.insert(user)
             }
             return null
         }
@@ -35,12 +35,12 @@ class UsersRepository(application: Application) {
 
     private class SelectAsyncTask(private val userDao: UserDao) :
         AsyncTask<String, Void, String>() {
-        override fun doInBackground(vararg users_email: String?): String? {
+        override fun doInBackground(vararg users_email: String?): String {
             for (user_email in users_email) {
                 if (user_email != null)
                     return userDao?.getUser(user_email) ?:String.toString()
             }
-            return null
+            return ""
         }
     }
 }

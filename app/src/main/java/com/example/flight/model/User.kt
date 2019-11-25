@@ -8,12 +8,7 @@ import org.jetbrains.annotations.NotNull
 
 @Entity(tableName = User.TABLE_NAME, indices = [Index(value = ["email"],unique = true)])
 data class User(
-    @ColumnInfo(name = "name") @NotNull val name: String,
-    @ColumnInfo(name = "lastname") @NotNull val lastName: String,
-    @ColumnInfo(name = "dni") @NotNull val dni: String,
-    @ColumnInfo(name = "phone") val phone: String? = null,
     @ColumnInfo(name = "email") @NotNull val email: String,
-    @ColumnInfo(name = "password") @NotNull val password: String,
     @ColumnInfo(name = "token") @NotNull val token: String
 ) {
     companion object {
