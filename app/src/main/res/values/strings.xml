@@ -2,5 +2,9 @@
     <string name="app_name">Flight</string>
     <string name="login_email">Email :</string>
     <string name="login_password">Password :</string>
+    <string name="title_activity_principal_menu">PrincipalMenu</string>
+    <string name="title_home">Search</string>
+    <string name="title_dashboard">My Flight</string>
+    <string name="title_notifications">User</string>
 
 </resources>

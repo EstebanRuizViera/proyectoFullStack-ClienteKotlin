@@ -32,54 +32,8 @@ class LoginActivity : AppCompatActivity() {
               ViewModelProviders.of(this).get(UsersViewModel::class.java)
         }
         login_button.setOnClickListener(){
-            login()
-
+            RequestHttp.login(this,email_login,password_login,usersViewModel)
         }
-
-
-
-    }
-
-    private fun addUser() {
-
-        var token:String= usersViewModel.getUser("asdf@asdf.com")
-        Toast.makeText(this, "Token " + token, Toast.LENGTH_LONG).show()
-    }
-
-    fun login() {
-
-        // User input
-        val loginJsonobj = JSONObject()
-
-        loginJsonobj.put("email", email_login.text)
-        loginJsonobj.put("password", password_login.text)
-
-        // new Volley newRequestQueue
-        val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.103.200:8000/api/login"
-        val req = object : JsonObjectRequest(
-            Request.Method.POST, url, loginJsonobj,
-            Response.Listener {
-                token=it.getString("token")
-
-                Observable.fromCallable {
-                    db = FlightDatabase.getInstance(context = this)
-                    //db?.userDao()?.insert(User("Usuario","user","1234",null,"asdf@asdf.com","asdfasd",""))
-                    db?.userDao()?.updateToken(email_login.text.toString(),token)
-
-                }.doOnNext({}).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
-
-                addUser()
-            },
-            Response.ErrorListener {
-                Toast.makeText(this, "email or password wrong !", Toast.LENGTH_SHORT).show()
-            })
-        {}
-
-        queue.add(req)
-
-
-
 
     }
 
