@@ -1,4 +1,4 @@
-package com.example.flight.ui.myFlight
+package com.example.flight.tabMenu.user
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.flight.R
 
-class MyFlightFragment : Fragment() {
+class UserFragment : Fragment() {
 
-    private lateinit var myFlightFragmentViewModel: MyFlightViewModel
+    private lateinit var userViewModel: UserViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        myFlightFragmentViewModel =
-            ViewModelProviders.of(this).get(MyFlightViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_my_flight, container, false)
-        val textView: TextView = root.findViewById(R.id.text_flight)
-        myFlightFragmentViewModel.text.observe(this, Observer {
+        userViewModel =
+            ViewModelProviders.of(this).get(UserViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_user, container, false)
+        val textView: TextView = root.findViewById(R.id.text_user)
+        userViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root

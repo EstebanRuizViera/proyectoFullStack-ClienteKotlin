@@ -1,8 +1,7 @@
-package com.example.flight.model
+package com.example.flight.myDataBase.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Index
 import androidx.room.PrimaryKey
 import org.jetbrains.annotations.NotNull
 

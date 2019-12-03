@@ -1,4 +1,4 @@
-package com.example.flight.ui.search
+package com.example.flight.tabMenu.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.example.flight.ui.user
+package com.example.flight.tabMenu.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.flight.R
 
-class UserFragment : Fragment() {
+class SearchFragment : Fragment() {
 
-    private lateinit var userViewModel: UserViewModel
+    private lateinit var searchViewModel: SearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        userViewModel =
-            ViewModelProviders.of(this).get(UserViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_user, container, false)
-        val textView: TextView = root.findViewById(R.id.text_user)
-        userViewModel.text.observe(this, Observer {
+        searchViewModel =
+            ViewModelProviders.of(this).get(SearchViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_search, container, false)
+        val textView: TextView = root.findViewById(R.id.text_search)
+        searchViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root

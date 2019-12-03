@@ -1,11 +1,11 @@
-package com.example.flight.repository
+package com.example.flight.myDataBase.repository
 
 import android.app.Application
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.flight.dao.AirportDao
-import com.example.flight.model.Airport
+import com.example.flight.myDataBase.dao.AirportDao
+import com.example.flight.myDataBase.model.Airport
 import com.example.pruebaslogin.FlightDatabase
 
 class AirportRepository(application: Application) {

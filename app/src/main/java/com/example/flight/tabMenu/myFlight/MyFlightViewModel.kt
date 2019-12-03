@@ -1,4 +1,4 @@
-package com.example.flight.ui.myFlight
+package com.example.flight.tabMenu.myFlight
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

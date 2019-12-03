@@ -1,9 +1,9 @@
-package com.example.flight.viewModel
+package com.example.flight.myDataBase.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.example.flight.model.Flight
-import com.example.flight.repository.FlightRepository
+import com.example.flight.myDataBase.model.Flight
+import com.example.flight.myDataBase.repository.FlightRepository
 
 class FlightViewModel (application: Application) : AndroidViewModel(application) {
     private val repository = FlightRepository(application)

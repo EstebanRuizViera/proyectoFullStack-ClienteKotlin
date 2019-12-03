@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.flight.dao.AirportDao
-import com.example.flight.dao.FlightDao
-import com.example.flight.model.Airport
-import com.example.flight.model.Flight
+import com.example.flight.myDataBase.dao.AirportDao
+import com.example.flight.myDataBase.dao.FlightDao
+import com.example.flight.myDataBase.model.Airport
+import com.example.flight.myDataBase.model.Flight
 
 @Database(entities = [User::class, Flight::class,Airport::class], version = 1, exportSchema = false)
 abstract class FlightDatabase : RoomDatabase() {

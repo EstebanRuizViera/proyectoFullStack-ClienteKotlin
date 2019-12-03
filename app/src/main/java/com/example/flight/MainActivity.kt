@@ -3,11 +3,9 @@ package com.example.flight
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProviders
-import com.example.flight.viewModel.AirportViewModel
-import com.example.flight.viewModel.FlightViewModel
+import com.example.flight.myDataBase.viewModel.AirportViewModel
+import com.example.flight.myDataBase.viewModel.FlightViewModel
 import com.example.pruebaslogin.UsersViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
@@ -34,35 +32,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         background.start()
-
-        /*usersViewModel = run {
-            ViewModelProviders.of(this).get(UsersViewModel::class.java)
-        }*/
-        //flightViewModel = run {
-          //  ViewModelProviders.of(this).get(FlightViewModel::class.java)
-        //}
-        //airportViewModel = run {
-          //  ViewModelProviders.of(this).get(AirportViewModel::class.java)
-        //}
-
-
-        /*login_activity_button.setOnClickListener(){
-            var intent = Intent(this,LoginActivity::class.java)
-            startActivity(intent)
-        }
-        register_activity_button.setOnClickListener(){
-            var intent = Intent(this,RegisterActivity::class.java)
-            startActivity(intent)
-        }
-
-        comprobar_button.setOnClickListener(){
-            var intent = Intent(this,PrincipalMenu::class.java)
-            startActivity(intent)
-            //RequestHttp.sincronizacion(this,usersViewModel)
-            //comprobarName()
-        }*/
     }
-
-
 
 }

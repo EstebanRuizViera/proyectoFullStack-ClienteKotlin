@@ -1,8 +1,8 @@
-package com.example.flight.dao
+package com.example.flight.myDataBase.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.flight.model.Airport
+import com.example.flight.myDataBase.model.Airport
 
 @Dao
 interface AirportDao {
