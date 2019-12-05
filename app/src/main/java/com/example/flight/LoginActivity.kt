@@ -1,7 +1,9 @@
 package com.example.flight
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.android.volley.Request
@@ -11,6 +13,7 @@ import com.android.volley.toolbox.Volley
 import com.example.pruebaslogin.FlightDatabase
 import com.example.pruebaslogin.User
 import com.example.pruebaslogin.UsersViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -35,6 +38,23 @@ class LoginActivity : AppCompatActivity() {
             RequestHttp.login(this,email_login,password_login,usersViewModel)
         }
 
+        val navView = findViewById(R.id.nav_view) as BottomNavigationView
+        navView.setOnNavigationItemSelectedListener(object :
+            BottomNavigationView.OnNavigationItemSelectedListener {
+            override fun onNavigationItemSelected(item: MenuItem): Boolean {
+                when (item.getItemId()) {
+                    R.id.navigation_search -> {
+                        val b = Intent(this@LoginActivity, SearchActivity::class.java)
+                        startActivity(b)
+                    }
+                    R.id.navigation_my_flight -> {
+                        val b = Intent(this@LoginActivity, MyFlightActivity::class.java)
+                        startActivity(b)
+                    }
+                }
+                return false
+            }
+        })
     }
 
 }

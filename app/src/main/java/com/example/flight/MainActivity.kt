@@ -20,11 +20,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         val background = object : Thread(){
             override fun run(){
                 try{
                     sleep(4000)
-                    val intent = Intent(baseContext,PrincipalMenu::class.java)
+                    val intent = Intent(baseContext,SearchActivity::class.java)
                     startActivity(intent)
                 }catch(e: Exception){
                     e.printStackTrace()

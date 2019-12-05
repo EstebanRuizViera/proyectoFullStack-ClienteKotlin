@@ -22,10 +22,7 @@ class UserFragment : Fragment() {
         userViewModel =
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_user, container, false)
-        val textView: TextView = root.findViewById(R.id.text_user)
-        userViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
+
         return root
     }
 }

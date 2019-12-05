@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.flight.tabMenu.search.SearchFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.flight.tabMenu.myFlight.MyFlightFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_my_flight"
         tools:layout="@layout/fragment_my_flight" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.flight.tabMenu.user.UserFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_user"
         tools:layout="@layout/fragment_user" />
 </navigation>

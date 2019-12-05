@@ -1,14 +1,15 @@
-package com.example.flight.tabMenu
+package com.example.flight
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.flight.tab.MFNextFlightFragment
+import com.example.flight.tabMenu.myFlight.MyFlightFragment
 
 private val TAB_TITLES = arrayOf(
-    1,
-    2
+    R.string.tab_1,
+    R.string.tab_2,
+    R.string.tab_3
 )
 
 /**
@@ -21,7 +22,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     override fun getItem(position: Int): Fragment {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return MFNextFlightFragment.newInstance(position + 1)
+        return MyFlightFragment.newInstance(position + 1)
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
