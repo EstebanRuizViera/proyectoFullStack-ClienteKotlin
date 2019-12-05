@@ -38,23 +38,7 @@ class LoginActivity : AppCompatActivity() {
             RequestHttp.login(this,email_login,password_login,usersViewModel)
         }
 
-        val navView = findViewById(R.id.nav_view) as BottomNavigationView
-        navView.setOnNavigationItemSelectedListener(object :
-            BottomNavigationView.OnNavigationItemSelectedListener {
-            override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                when (item.getItemId()) {
-                    R.id.navigation_search -> {
-                        val b = Intent(this@LoginActivity, SearchActivity::class.java)
-                        startActivity(b)
-                    }
-                    R.id.navigation_my_flight -> {
-                        val b = Intent(this@LoginActivity, MyFlightActivity::class.java)
-                        startActivity(b)
-                    }
-                }
-                return false
-            }
-        })
+
     }
 
 }

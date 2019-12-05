@@ -19,6 +19,7 @@ class ReservationsAdapter(students: ArrayList<Reservations>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         holder.textViewName.setText(reservations[position].name)
         holder.textViewSurname.setText(reservations[position].surname)
     }

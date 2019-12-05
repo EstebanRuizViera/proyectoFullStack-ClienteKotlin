@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".LoggedInActivity"></activity>
+        <activity android:name=".LogOutActivity" />
+        <activity android:name=".SearchActivity" />
         <activity android:name=".MyFlightActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />

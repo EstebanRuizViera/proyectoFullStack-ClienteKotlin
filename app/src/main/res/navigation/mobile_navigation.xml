@@ -20,6 +20,6 @@
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.flight.tabMenu.user.UserFragment"
-        android:label="@string/title_user"
+        android:label="@string/title_profile"
         tools:layout="@layout/fragment_user" />
 </navigation>

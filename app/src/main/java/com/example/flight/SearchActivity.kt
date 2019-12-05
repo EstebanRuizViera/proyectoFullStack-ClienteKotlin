@@ -22,7 +22,7 @@ class SearchActivity : AppCompatActivity() {
                         startActivity(b)
                     }
                     R.id.navigation_user -> {
-                        val b = Intent(this@SearchActivity, LoginActivity::class.java)
+                        val b = Intent(this@SearchActivity, LoggedInActivity::class.java)
                         startActivity(b)
                     }
                 }
