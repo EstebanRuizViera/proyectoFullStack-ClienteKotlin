@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_log_out.*
 
 class LogOutActivity : AppCompatActivity() {
 
@@ -29,5 +30,14 @@ class LogOutActivity : AppCompatActivity() {
                 return false
             }
         })
+
+        login_button.setOnClickListener(){
+            val intent= Intent(this,LoginActivity::class.java)
+            startActivity(intent)
+        }
+        register_button.setOnClickListener(){
+            val intent= Intent(this,RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

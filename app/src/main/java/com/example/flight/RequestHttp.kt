@@ -26,106 +26,73 @@ class RequestHttp {
 
     companion object {
         private var db: FlightDatabase? = null
+        const val URL ="http://192.168.103.200:8000"
 
-        @JvmStatic fun syncUpDataBase(context: Context,usersViewModel:UsersViewModel){
+        @JvmStatic private fun getTokenUser(context: Context,usersViewModel: UsersViewModel) {
 
-            getTokenUser(usersViewModel)
-
-            var array= JSONArray()
-
-            // new Volley newRequestQueue
-            val updateQueue = Volley.newRequestQueue(context)
-            val updateUrl = "http://192.168.103.200:8000/api/users"
-            val updateReq = object : JsonArrayRequest(
-                Request.Method.GET, updateUrl, null,
-                Response.Listener {
-                    Toast.makeText(context, "Succesful access", Toast.LENGTH_SHORT).show()
-                    array=it
-                    for (i in 0 until array.length()) {
-                        val user = array.getJSONObject(i)
-                        if(usersViewModel.getUser(user.getString("email"))!= ""){
-                            usersViewModel.saveUser(User(user.getString("email"),""))
-                            Log.println(Log.INFO,null,"save "+user.getString("name"))
-                        }else{
-                            Log.println(Log.INFO,null,"dont save "+user.getString("name"))
-                        }
-                    }
-                },
-                Response.ErrorListener {
-                    Toast.makeText(context, "Error of syncronization", Toast.LENGTH_SHORT).show()
-                })
-            {
-                // override getHeader for pass session to service
-                override fun getHeaders(): MutableMap<String, String> {
-
-                    val header = mutableMapOf<String, String>()
-                    try {
-                        header.put("Content-Type", "application/json")
-                        header.put("Authorization", "Bearer " + getTokenUser(usersViewModel))
-                    } catch (e: StackOverflowError) {
-                        Log.println(Log.INFO,null,e.message)
-                    }
-                    return header
-                }
-            }
-            updateQueue.add(updateReq)
-
-        }
-
-        @JvmStatic private fun getTokenUser(usersViewModel: UsersViewModel):String {
-
-            val listUser=usersViewModel.users.value
+            /*val listUser=usersViewModel.users
             if(listUser != null){
-                for(i in 0 until listUser!!.size){
+                for(i in 0 until listUser.size){
                     if(listUser[i].token!=""){
-                        return listUser[i].token
+                        Log.println(Log.INFO,null,"token "+listUser[i].token)
+                        //return listUser[i].token
                     }
                 }
             }else{
-                Log.println(Log.INFO,null,"else")
+                Log.println(Log.INFO,null,"get token user")
             }
-
-            return ""
+*/
+            //return ""
         }
 
-        @JvmStatic fun login(context: Context,email_login:EditText,password_login:EditText,usersViewModel: UsersViewModel) {
+        @JvmStatic fun login(context: Context,email_text:EditText,password_text:EditText,usersViewModel: UsersViewModel) {
 
-            var token:String?=null
-            // User input
             val loginJsonobj = JSONObject()
 
-            loginJsonobj.put("email", email_login.text)
-            loginJsonobj.put("password", password_login.text)
+            loginJsonobj.put("email", email_text.text)
+            loginJsonobj.put("password", password_text.text)
 
             // new Volley newRequestQueue
             val queue = Volley.newRequestQueue(context)
-            val url = "http://192.168.103.200:8000/api/login"
-            val req = object : JsonObjectRequest(
-                Request.Method.POST, url, loginJsonobj,
+            val url = URL +"/login"
+            val req = object : JsonObjectRequest(Request.Method.POST, url, loginJsonobj,
                 Response.Listener {
-                    token=it.getString("token")
+                    usersViewModel.updateToken(User(email_text.text.toString(), it.getString("token")))
+                    Log.println(Log.INFO, null, "if "+usersViewModel.getUser(email_text.text.toString()))
 
-                    Observable.fromCallable {
-                        db = FlightDatabase.getInstance(context = context)
-                        //db?.userDao()?.insert(User("Usuario","user","1234",null,"asdf@asdf.com","asdfasd",""))
-                        db?.userDao()?.updateToken(email_login.text.toString(),token!!)
+                    val token=usersViewModel.getToken(email_text.text.toString())
+                    Toast.makeText(context, "Identificacion correcta "+token, Toast.LENGTH_SHORT).show()
 
-                    }.doOnNext({}).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
-
-                    Toast.makeText(context, "Succesful login", Toast.LENGTH_SHORT).show()
                 },
                 Response.ErrorListener {
-                    Toast.makeText(context, "email or password wrong !", Toast.LENGTH_SHORT).show()
-                })
-            {}
-
+                    Toast.makeText(context, "Error al identificarte", Toast.LENGTH_SHORT).show()
+                }
+            ){}
             queue.add(req)
-
         }
 
-        fun addUser(context: Context,usersViewModel: UsersViewModel,name_editText:EditText,lastname_editText:EditText,dni_editText:EditText,email_editText:EditText,password_editText:EditText) {
+        @JvmStatic fun logout(context: Context,usersViewModel: UsersViewModel){
+            val listUser =usersViewModel.users?.value
 
-            // User input
+
+            if(listUser != null){
+                listUser.forEach {
+                    if(it.token!=""){
+                        usersViewModel.updateToken(User(it.email, ""))
+                        Log.println(Log.INFO,null,"usuario "+it.email+" ya no esta logeado")
+                    }else{
+                        Log.println(Log.INFO,null,"else list user logout")
+                    }
+                }
+
+            }else{
+                Log.println(Log.INFO,null,"else logout")
+            }
+            //RequestHttp.getTokenUser(context,usersViewModel)
+        }
+
+        @JvmStatic fun registerUser(context: Context,usersViewModel: UsersViewModel,name_editText:EditText,lastname_editText:EditText,dni_editText:EditText,email_editText:EditText,password_editText:EditText) {
+
             val loginJsonobj = JSONObject()
 
             loginJsonobj.put("name", name_editText.text)
@@ -134,40 +101,40 @@ class RequestHttp {
             loginJsonobj.put("email", email_editText.text)
             loginJsonobj.put("password", password_editText.text)
 
-            // new Volley newRequestQueue
             val queue = Volley.newRequestQueue(context)
-            val url = "http://192.168.103.200:8000/api/register"
+            val url = URL +"/register"
             val req = object : JsonObjectRequest(
                 Request.Method.POST, url, loginJsonobj,
                 Response.Listener {
+
                     usersViewModel.saveUser(User(email_editText.text.toString(),""))
-                    Toast.makeText(context, "Login succesfull ! ", Toast.LENGTH_LONG).show()
+
+                    Toast.makeText(context, "Registro realizado ! ", Toast.LENGTH_LONG).show()
                 },
                 Response.ErrorListener {
-                    Toast.makeText(context, "email or password wrong !", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "error al registrar !", Toast.LENGTH_SHORT).show()
                 })
             {}
 
             queue.add(req)
         }
+        @JvmStatic fun sincronizacionUsuarios(context: Context,usersViewModel: UsersViewModel){
 
-        fun sincronizacion(context: Context,usersViewModel: UsersViewModel){
-
-            var array=JSONArray()
+            var array= JSONArray()
 
             // new Volley newRequestQueue
-            val updateQueue = Volley.newRequestQueue(context)
-            val updateUrl = "http://192.168.103.200:8000/api/users"
+            val queue = Volley.newRequestQueue(context)
+            val url = URL+"/api/all/users"
             val updateReq = object : JsonArrayRequest(
-                Request.Method.GET, updateUrl, null,
+                Request.Method.GET, url, null,
                 Response.Listener {
                     Toast.makeText(context, "Succesful access", Toast.LENGTH_SHORT).show()
                     array=it
                     for (i in 0 until array.length()) {
                         val user = array.getJSONObject(i)
-                        if(usersViewModel.getUser(user.getString("email"))!= ""){
+                        if(usersViewModel.getUser(user.getString("email"))== ""){
                             usersViewModel.saveUser(User(user.getString("email"),""))
-                            Log.println(Log.INFO,null,"save "+user.getString("name"))
+                            Log.println(Log.INFO,null,"save "+usersViewModel.getUser(user.getString("email")))
                         }else{
                             Log.println(Log.INFO,null,"dont save "+user.getString("name"))
                         }
@@ -175,26 +142,13 @@ class RequestHttp {
                 },
                 Response.ErrorListener {
                     Toast.makeText(context, "Error of authentication", Toast.LENGTH_SHORT).show()
-                }) {
-
-                // override getHeader for pass session to service
-                override fun getHeaders(): MutableMap<String, String> {
-
-                    val header = mutableMapOf<String, String>()
-                    try {
-
-                        header.put("Content-Type", "application/json")
-                        header.put("Authorization", "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4LjEwMy4yMDA6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NDcwNTcxMSwiZXhwIjoxNTc0NzA5MzExLCJuYmYiOjE1NzQ3MDU3MTEsImp0aSI6IkRWaDZHZ2N4d01aZkFzWVAiLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.glar6MMFwEmUKz8XVKJ6sqbTO1uYy-nTjzvH4H9Peb4")
-                    } catch (e: StackOverflowError) {
-                        Log.println(Log.INFO,null,e.message)
-                    }
-                    return header
                 }
-            }
-            updateQueue.add(updateReq)
+            ){}
 
+            queue.add(updateReq)
 
         }
+
     }
 
 }

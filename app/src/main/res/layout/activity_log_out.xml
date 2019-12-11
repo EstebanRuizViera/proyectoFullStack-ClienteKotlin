@@ -55,14 +55,14 @@
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/login_button"
             android:layout_width="119dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:text="@string/login_text" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/register_button"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"

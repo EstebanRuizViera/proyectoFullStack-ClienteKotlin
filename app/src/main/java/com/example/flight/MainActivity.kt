@@ -3,10 +3,13 @@ package com.example.flight
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.lifecycle.ViewModelProviders
 import com.example.flight.myDataBase.viewModel.AirportViewModel
 import com.example.flight.myDataBase.viewModel.FlightViewModel
 import com.example.pruebaslogin.UsersViewModel
 import java.lang.Exception
+import kotlin.math.absoluteValue
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +23,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        usersViewModel = run {
+            ViewModelProviders.of(this).get(UsersViewModel::class.java)
+        }
+
+        RequestHttp.sincronizacionUsuarios(this,usersViewModel);
 
         val background = object : Thread(){
             override fun run(){
