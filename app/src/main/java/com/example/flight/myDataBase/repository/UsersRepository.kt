@@ -1,12 +1,10 @@
 package com.example.pruebaslogin
 
 import android.app.Application
-import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 
 class UsersRepository(application: Application) {
     private val userDao: UserDao? = FlightDatabase.getInstance(application)?.userDao()
@@ -21,17 +19,13 @@ class UsersRepository(application: Application) {
             UpdateTokenAsyncTask(userDao).execute(user)
     }
 
-    /*fun getUsers(context: Context): LiveData<List<User>>? {
+    fun getUsers(): LiveData<List<User>>? {
 
-        if(userDao != null) {
+        if(userDao !=null) {
 
-            var users = listOf<User>()
-            userDao.getUsers().observe(context, Observer { users -> {
-                this.users = users
-            } })
+            var users =userDao.getUsers()
             if(users != null){
-                Log.println(Log.INFO, null, "ALL USER " + users.value?.get(1)?.email)
-
+                Log.println(Log.INFO, null, "ALL USER")
                 return users
             }
             Log.println(Log.INFO, null, "NULL")
@@ -39,7 +33,7 @@ class UsersRepository(application: Application) {
         }
         Log.println(Log.INFO, null, " NULL")
         return null
-    }*/
+    }
     fun deleteUsers(user: User) {
         if (userDao != null)
             DeleteAsyncTask(userDao).execute(user).get()
@@ -57,7 +51,7 @@ class UsersRepository(application: Application) {
     fun getToken(user_email:String):String {
 
         if (userDao != null)
-            return SelectAsyncTask(userDao).execute(user_email).get()
+            return GetTokenAsyncTask(userDao).execute(user_email).get()
         return ""
     }
 
@@ -87,7 +81,7 @@ class UsersRepository(application: Application) {
         }
     }
 
-    private class SelectAsyncTask(private val userDao: UserDao) :
+    private class GetTokenAsyncTask(private val userDao: UserDao) :
         AsyncTask<String, Void, String>() {
         override fun doInBackground(vararg users_email: String?): String {
             for (user_email in users_email) {

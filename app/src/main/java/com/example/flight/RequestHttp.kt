@@ -1,10 +1,12 @@
 package com.example.flight
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
@@ -28,21 +30,34 @@ class RequestHttp {
         private var db: FlightDatabase? = null
         const val URL ="http://192.168.103.200:8000"
 
-        @JvmStatic private fun getTokenUser(context: Context,usersViewModel: UsersViewModel) {
+        @JvmStatic fun getTokenUser(context: Context,usersViewModel: UsersViewModel)  {
 
-            /*val listUser=usersViewModel.users
-            if(listUser != null){
-                for(i in 0 until listUser.size){
-                    if(listUser[i].token!=""){
-                        Log.println(Log.INFO,null,"token "+listUser[i].token)
-                        //return listUser[i].token
+            var objectToken ="void"
+            // new Volley newRequestQueue
+            val queue = Volley.newRequestQueue(context)
+            val url = URL+"/api/all/users"
+            val updateReq = object : JsonArrayRequest(
+                Request.Method.GET, url, null,
+                Response.Listener {
+                    for(i in 0 until it.length()){
+
+                        if(usersViewModel.getToken(it.getJSONObject(i).getString("email"))== ""){
+                            Log.println(Log.INFO,null,"token vacio")
+                        }else{
+
+                            val intent = Intent(context,MyFlightActivity::class.java)
+                            context.startActivity(intent)
+                            Log.println(Log.INFO,null,"get token "+objectToken)
+                        }
                     }
+                },
+                Response.ErrorListener {
+                    Log.println(Log.INFO,null,"error al obtener el token")
                 }
-            }else{
-                Log.println(Log.INFO,null,"get token user")
-            }
-*/
-            //return ""
+            ){}
+
+            queue.add(updateReq)
+
         }
 
         @JvmStatic fun login(context: Context,email_text:EditText,password_text:EditText,usersViewModel: UsersViewModel) {
@@ -72,23 +87,27 @@ class RequestHttp {
         }
 
         @JvmStatic fun logout(context: Context,usersViewModel: UsersViewModel){
-            val listUser =usersViewModel.users?.value
 
 
-            if(listUser != null){
-                listUser.forEach {
-                    if(it.token!=""){
-                        usersViewModel.updateToken(User(it.email, ""))
-                        Log.println(Log.INFO,null,"usuario "+it.email+" ya no esta logeado")
-                    }else{
-                        Log.println(Log.INFO,null,"else list user logout")
+            // new Volley newRequestQueue
+            val queue = Volley.newRequestQueue(context)
+            val url = URL+"/api/all/users"
+            val updateReq = object : JsonArrayRequest(
+                Request.Method.GET, url, null,
+                Response.Listener {
+                    for(i in 0 until it.length()){
+                        var obj=it.getJSONObject(i)
+                        usersViewModel.updateToken(User(obj.getString("email"), ""))
+                        Log.println(Log.INFO,null,"usuario "+obj.getString("email")+" ya no esta logeado")
                     }
+                },
+                Response.ErrorListener {
+                    Toast.makeText(context, "Error of authentication", Toast.LENGTH_SHORT).show()
                 }
+            ){}
 
-            }else{
-                Log.println(Log.INFO,null,"else logout")
-            }
-            //RequestHttp.getTokenUser(context,usersViewModel)
+            queue.add(updateReq)
+
         }
 
         @JvmStatic fun registerUser(context: Context,usersViewModel: UsersViewModel,name_editText:EditText,lastname_editText:EditText,dni_editText:EditText,email_editText:EditText,password_editText:EditText) {

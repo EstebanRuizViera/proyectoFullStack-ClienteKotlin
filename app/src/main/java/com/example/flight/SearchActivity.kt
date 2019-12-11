@@ -3,6 +3,7 @@ package com.example.flight
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProviders
 import com.example.pruebaslogin.UsersViewModel
@@ -38,6 +39,8 @@ class SearchActivity : AppCompatActivity() {
             }
         })
 
-        RequestHttp.logout(this,usersViewModel);
+        //RequestHttp.logout(this,usersViewModel);
+
+        RequestHttp.getTokenUser(this,usersViewModel,"LoginActivity");
     }
 }
