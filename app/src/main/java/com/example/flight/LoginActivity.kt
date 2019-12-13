@@ -3,6 +3,7 @@ package com.example.flight
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
@@ -34,11 +35,25 @@ class LoginActivity : AppCompatActivity() {
         usersViewModel = run {
               ViewModelProviders.of(this).get(UsersViewModel::class.java)
         }
+
+        if(usersViewModel.getUserIdLocal(1)==0){
+            usersViewModel.saveUser(User(1,"",""))
+            Log.println(Log.INFO,null,"Guardado ")
+        }else{
+            Log.println(Log.INFO,null,"No guardado ")
+        }
         login_button.setOnClickListener(){
             RequestHttp.login(this,email_login,password_login,usersViewModel)
         }
 
+        signuphere_tect_button.setOnClickListener(){
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
+    }
+    override fun onBackPressed() {
+        //super.onBackPressed()
     }
 
 }

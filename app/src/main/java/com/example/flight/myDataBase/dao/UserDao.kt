@@ -14,15 +14,19 @@ interface UserDao {
     @Delete
     fun delete(vararg user: User)
 
-    @Query("UPDATE "+ User.TABLE_NAME +" SET token=:token WHERE email = :email")
-    fun updateToken(email: String, token: String)
+    @Query("UPDATE "+ User.TABLE_NAME +" SET token=:token WHERE id =:id")
+    fun updateToken(id: String, token: String)
 
-    @Query("SELECT token FROM " + User.TABLE_NAME + " WHERE email=:user_email")
-    fun getToken(user_email: String): String
+    @Query("SELECT token FROM " + User.TABLE_NAME + " WHERE id=:id")
+    fun getToken(id: Int): String
 
-    @Query("SELECT email FROM " + User.TABLE_NAME + " WHERE email=:user_email")
-    fun getUser(user_email: String): String
+    @Query("SELECT id_remoto FROM " + User.TABLE_NAME + " WHERE id=:id")
+    fun getUserId(id: Int): String
+
+    @Query("SELECT id FROM " + User.TABLE_NAME + " WHERE id=:id")
+    fun getUserIdLocal(id: Int): Int
 
     @Query("SELECT * FROM "+ User.TABLE_NAME )
     fun getUsers(): LiveData<List<User>>
+
 }

@@ -14,52 +14,44 @@ class UsersRepository(application: Application) {
             InsertAsyncTask(userDao).execute(user)
     }
 
+    fun getUserId(id:Int):String {
+
+        if (userDao != null)
+            return IdUserAsyncTask(userDao).execute(id).get()
+        return ""
+    }
+
+    fun getUserIdLocal(id:Int):Int {
+
+        if (userDao != null)
+            return IdUserLocalAsyncTask(userDao).execute(id).get()
+        return 0
+    }
+
+    fun getToken(id:Int):String {
+
+        if (userDao != null)
+            return GetTokenAsyncTask(userDao).execute(id).get()
+        return ""
+    }
+
+
     fun updateToken(user: User) {
         if (userDao != null)
             UpdateTokenAsyncTask(userDao).execute(user)
     }
 
-    fun getUsers(): LiveData<List<User>>? {
-
-        if(userDao !=null) {
-
-            var users =userDao.getUsers()
-            if(users != null){
-                Log.println(Log.INFO, null, "ALL USER")
-                return users
-            }
-            Log.println(Log.INFO, null, "NULL")
-            return null
-        }
-        Log.println(Log.INFO, null, " NULL")
-        return null
-    }
-    fun deleteUsers(user: User) {
+    fun updateUser(user: User) {
         if (userDao != null)
-            DeleteAsyncTask(userDao).execute(user).get()
-        Log.println(Log.INFO, null, "BORRADO")
-
+            UpdateUserAsyncTask(userDao).execute(user)
     }
 
-    fun getUser(user_email:String):String {
-
-        if (userDao != null)
-            return EmailUserAsyncTask(userDao).execute(user_email).get()
-        return ""
-    }
-
-    fun getToken(user_email:String):String {
-
-        if (userDao != null)
-            return GetTokenAsyncTask(userDao).execute(user_email).get()
-        return ""
-    }
 
     private class InsertAsyncTask(private val userDao: UserDao) :
         AsyncTask<User, Void, Void>() {
         override fun doInBackground(vararg users: User?): Void? {
             for (user in users) {
-                if (user?.email != null && user?.token != null) {
+                if (user?.id_remoto != null && user?.token != null) {
                     userDao.insert(user)
                 }
 
@@ -68,25 +60,12 @@ class UsersRepository(application: Application) {
         }
     }
 
-    private class DeleteAsyncTask(private val userDao: UserDao) :
-        AsyncTask<User, Void, Void>() {
-        override fun doInBackground(vararg users: User?): Void? {
-            for (user in users) {
-                if (user?.email != null && user?.token != null) {
-                    userDao.delete(user)
-                }
-
-            }
-            return null
-        }
-    }
-
     private class GetTokenAsyncTask(private val userDao: UserDao) :
-        AsyncTask<String, Void, String>() {
-        override fun doInBackground(vararg users_email: String?): String {
-            for (user_email in users_email) {
-                if (user_email != null) {
-                    var user = userDao.getToken(user_email)
+        AsyncTask<Int, Void, String>() {
+        override fun doInBackground(vararg ids: Int?): String {
+            for (id in ids) {
+                if (id != null) {
+                    var user = userDao.getToken(id)
                     if (user != null) {
                         return user
                     }
@@ -96,12 +75,12 @@ class UsersRepository(application: Application) {
         }
     }
 
-    private class EmailUserAsyncTask(private val userDao: UserDao) :
-        AsyncTask<String, Void, String>() {
-        override fun doInBackground(vararg users_email: String): String {
-            for (user_email in users_email) {
-                if (user_email != null){
-                    var user=userDao.getUser(user_email)
+    private class IdUserAsyncTask(private val userDao: UserDao) :
+        AsyncTask<Int, Void, String>() {
+        override fun doInBackground(vararg ids: Int?): String {
+            for (id in ids) {
+                if (id != null){
+                    var user=userDao.getUserId(id)
                     if(user !=null){
                         return user
                     }
@@ -111,12 +90,38 @@ class UsersRepository(application: Application) {
         }
     }
 
+    private class IdUserLocalAsyncTask(private val userDao: UserDao) :
+        AsyncTask<Int, Void, Int>() {
+        override fun doInBackground(vararg ids: Int?): Int {
+            for (id in ids) {
+                if (id != null){
+                    var user=userDao.getUserIdLocal(id)
+                    if(user !=null){
+                        return user
+                    }
+                }
+            }
+            return 0
+        }
+    }
+
     private class UpdateTokenAsyncTask(private val userDao: UserDao) :
         AsyncTask<User, Void, Void>() {
         override fun doInBackground(vararg users: User?): Void? {
             for (user in users) {
-                if (user?.email != null && user?.token != null)
-                    userDao.updateToken(user!!.email,user!!.token)
+                if (user?.id_remoto != null && user?.token != null)
+                    userDao.updateToken(user!!.id_remoto,user!!.token)
+            }
+            return null
+        }
+    }
+
+    private class UpdateUserAsyncTask(private val userDao: UserDao) :
+        AsyncTask<User, Void, Void>() {
+        override fun doInBackground(vararg users: User?): Void? {
+            for (user in users) {
+                if(user != null)
+                    userDao.update(user)
             }
             return null
         }

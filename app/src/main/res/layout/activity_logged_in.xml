@@ -85,31 +85,35 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/name_text_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/text_vertical_margin"
                     android:text="a" />
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/lastname_editText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/text_vertical_margin"
                     android:text="DSF" />
 
                 <TextView
+                    android:id="@+id/dni_text_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/text_vertical_margin"
                     android:text="DFHGDFGHDFHG" />
 
                 <TextView
+                    android:id="@+id/phone_text_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/text_vertical_margin"
                     android:text="TextView" />
 
                 <TextView
+                    android:id="@+id/email_text_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/text_vertical_margin"
@@ -125,18 +129,24 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/edit_button"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/text_vertical_margin"
                 android:text="@string/edit_user" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/delete_button"
                 android:layout_width="132dp"
                 android:layout_height="wrap_content"
                 android:text="@string/delete_user" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/logout_button"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:text="@string/logout_button" />
 
     </LinearLayout>
 

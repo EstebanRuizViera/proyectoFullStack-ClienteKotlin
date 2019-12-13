@@ -7,8 +7,6 @@ import androidx.lifecycle.ViewModel
 
 class UsersViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = UsersRepository(application)
-    //val users = repository.getUsers()
-    val users=MainViewModel(application)
 
     fun saveUser(user: User) {
         repository.insert(user)
@@ -18,26 +16,21 @@ class UsersViewModel(application: Application) : AndroidViewModel(application) {
         repository.updateToken(user)
     }
 
-    fun deleteUser(user: User) {
-        repository.deleteUsers(user)
+    fun updateUser(user: User) {
+        repository.updateUser(user)
     }
 
-    fun getToken(email_user: String):String {
-        return repository.getToken(email_user)
+
+    fun getToken(id: Int):String {
+        return repository.getToken(id)
     }
 
-    fun getUser(email_user: String):String {
-        return repository.getUser(email_user)
+    fun getUserId(id: Int):String {
+        return repository.getUserId(id)
     }
 
-    class MainViewModel(application: Application) : ViewModel() {
-
-        private val repository = UsersRepository(application)
-        val users : LiveData<List<User>> get() = repository.getUsers()!!
-
-        override fun onCleared() {
-            super.onCleared()
-
-        }
+    fun getUserIdLocal(id: Int):Int {
+        return repository.getUserIdLocal(id)
     }
+
 }

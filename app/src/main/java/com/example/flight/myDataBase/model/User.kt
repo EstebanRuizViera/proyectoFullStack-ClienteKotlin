@@ -6,16 +6,14 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import org.jetbrains.annotations.NotNull
 
-@Entity(tableName = User.TABLE_NAME, indices = [Index(value = ["email"],unique = true)])
+@Entity(tableName = User.TABLE_NAME)
 data class User(
-    @ColumnInfo(name = "email") @NotNull val email: String,
+    @PrimaryKey(autoGenerate = true)@ColumnInfo(name = "id") val id: Int,
+    @ColumnInfo(name = "id_remoto") @NotNull val id_remoto: String,
     @ColumnInfo(name = "token") @NotNull val token: String
 ) {
     companion object {
         const val TABLE_NAME = "user"
     }
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Int = 0
 }

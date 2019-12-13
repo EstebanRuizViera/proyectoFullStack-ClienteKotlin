@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flight.R
+import com.example.flight.RequestHttp
 import kotlinx.android.synthetic.main.fragment_my_flight.*
 
 
@@ -27,15 +28,11 @@ class MyFlightFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         val root = inflater.inflate(R.layout.fragment_my_flight, container, false)
 
         var usersList=arrayListOf<Reservations>()
-
-        usersList.add(Reservations("Samuel",""))
-        usersList.add(Reservations("Jacinto",""))
-        usersList.add(Reservations("Javier",""))
-        usersList.add(Reservations("Olga",""))
 
         val recyclerView = root.findViewById<RecyclerView>(R.id.recyclerViewReservations)
 
@@ -43,9 +40,7 @@ class MyFlightFragment : Fragment() {
         val layoutManagerStudents = GridLayoutManager(root.context, 1)
         recyclerView.setLayoutManager(layoutManagerStudents)
 
-        //4º) Asigno al RecyclerView el adaptador que relaciona a cada item con su objeto a mostrar.
-        val studentsAdapter = ReservationsAdapter(usersList)
-        recyclerView.setAdapter(studentsAdapter)
+        RequestHttp.getAllAirports(root.context,usersList,recyclerView)
 
         return root
     }

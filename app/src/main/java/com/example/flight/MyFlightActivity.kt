@@ -3,10 +3,12 @@ package com.example.flight
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_search.*
 
 class MyFlightActivity : AppCompatActivity() {
 
@@ -32,7 +34,7 @@ class MyFlightActivity : AppCompatActivity() {
                         startActivity(b)
                     }
                     R.id.navigation_user -> {
-                        val b = Intent(this@MyFlightActivity, LogOutActivity::class.java)
+                        val b = Intent(this@MyFlightActivity, LoggedInActivity::class.java)
                         startActivity(b)
                     }
                 }
@@ -40,4 +42,9 @@ class MyFlightActivity : AppCompatActivity() {
             }
         })
     }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+    }
+
 }
