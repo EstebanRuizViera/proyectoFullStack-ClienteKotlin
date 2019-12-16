@@ -27,7 +27,7 @@ class RegisterActivity : AppCompatActivity() {
             ViewModelProviders.of(this).get(UsersViewModel::class.java)
         }
         accep_register_button.setOnClickListener(){
-            RequestHttp.registerUser(this,name_editText,lastname_editText,dni_editText,telephone_editText,email_editText,password_editText)
+            RequestHttp.registerUser(this,name_editText,lastname_editText,dni_editText,phone_edtiText,email_editText,password_editText)
         }
     }
 

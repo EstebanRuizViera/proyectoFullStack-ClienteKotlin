@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/constraintLayout"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/border"
-    android:gravity="center|center_vertical"
-    android:orientation="horizontal"
-    android:padding="20dp">
+    android:gravity="center|center_vertical">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -20,10 +18,11 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="TextView" />
+            android:text="Origen"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textViewSurname"
+            android:id="@+id/origen_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -35,9 +34,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -45,9 +42,11 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="TextView" />
+            android:text="Destino"
+            android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/destiny_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -59,7 +58,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -67,9 +66,35 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="TextView" />
+            android:text="Fecha de ida"
+            android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/departure_date_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="TextView"
+            android:visibility="visible" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="Fecha de vuelta"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/arrival_date_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"

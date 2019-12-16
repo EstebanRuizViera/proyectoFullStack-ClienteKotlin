@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flight.R
 import com.example.flight.RequestHttp
+import com.example.pruebaslogin.UsersViewModel
 import kotlinx.android.synthetic.main.fragment_my_flight.*
 
 
@@ -31,16 +32,6 @@ class MyFlightFragment : Fragment() {
 
     ): View? {
         val root = inflater.inflate(R.layout.fragment_my_flight, container, false)
-
-        var usersList=arrayListOf<Reservations>()
-
-        val recyclerView = root.findViewById<RecyclerView>(R.id.recyclerViewReservations)
-
-        //3º) Indico la disposición en la que se mostrarán los items en el RecyclerView (P.Ej: GridLayout de 2 columnas)
-        val layoutManagerStudents = GridLayoutManager(root.context, 1)
-        recyclerView.setLayoutManager(layoutManagerStudents)
-
-        RequestHttp.getAllAirports(root.context,usersList,recyclerView)
 
         return root
     }

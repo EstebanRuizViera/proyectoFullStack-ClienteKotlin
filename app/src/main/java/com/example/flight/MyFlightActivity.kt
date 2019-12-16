@@ -3,26 +3,35 @@ package com.example.flight
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
-import androidx.viewpager.widget.ViewPager
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.flight.reciclerView.Reservations
+import com.example.pruebaslogin.UsersViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_search.*
 
 class MyFlightActivity : AppCompatActivity() {
+
+    private lateinit var usersViewModel: UsersViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_flight)
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        usersViewModel = run {
+            ViewModelProviders.of(this).get(UsersViewModel::class.java)
+        }
 
-        val viewPager: ViewPager = findViewById(R.id.view_pager)
-        viewPager.adapter = sectionsPagerAdapter
+        var usersList=arrayListOf<Reservations>()
 
-        val tabs: TabLayout = findViewById(R.id.tabs)
-        tabs.setupWithViewPager(viewPager)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewReservations)
+
+        //3º) Indico la disposición en la que se mostrarán los items en el RecyclerView (P.Ej: GridLayout de 2 columnas)
+        val layoutManagerStudents = GridLayoutManager(this, 1)
+        recyclerView.setLayoutManager(layoutManagerStudents)
+
+        RequestHttp.getAllReserver(this,usersViewModel,usersList,recyclerView)
 
         val navView = findViewById(R.id.nav_view) as BottomNavigationView
         navView.setOnNavigationItemSelectedListener(object :

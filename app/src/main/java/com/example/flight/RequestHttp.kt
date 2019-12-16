@@ -12,9 +12,12 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.flight.tabMenu.myFlight.Reservations
-import com.example.flight.tabMenu.myFlight.ReservationsAdapter
+import com.example.flight.reciclerView.FlightAdapter
+import com.example.flight.reciclerView.Flights
+import com.example.flight.reciclerView.Reservations
+import com.example.flight.reciclerView.ReservationsAdapter
 import com.example.pruebaslogin.FlightDatabase
 import com.example.pruebaslogin.User
 import com.example.pruebaslogin.UsersViewModel
@@ -81,7 +84,7 @@ class RequestHttp {
         }
 
 
-        @JvmStatic fun registerUser(context: Context,name_editText:EditText,lastname_editText:EditText,dni_editText:EditText,telephone: TextView,email_editText:EditText,password_editText:EditText) {
+        @JvmStatic fun registerUser(context: Context,name_editText:EditText,lastname_editText:EditText,dni_editText:EditText,telephone: EditText,email_editText:EditText,password_editText:EditText) {
 
             val loginJsonobj = JSONObject()
 
@@ -188,17 +191,17 @@ class RequestHttp {
 
             val queue = Volley.newRequestQueue(context)
             val url = URL +"/api/user/"+usersViewModel.getUserId(1)
-            val req = object : JsonObjectRequest(
-                Request.Method.DELETE, url, null,
+            val req = object : StringRequest(
+                Request.Method.DELETE, url,
                 Response.Listener {
-                    Toast.makeText(context, "borrado realizado con exito", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, it, Toast.LENGTH_LONG).show()
 
                     val intent=Intent(context,LoginActivity::class.java)
                     context.startActivity(intent)
 
                 },
                 Response.ErrorListener {
-                    Log.println(Log.INFO,null,"ERROR "+it.message)
+                    Log.println(Log.INFO,null,"ERROR "+it.toString())
                 })
             {
                 @Throws(AuthFailureError::class)
@@ -207,6 +210,7 @@ class RequestHttp {
                         HashMap()
                     // Basic Authentication
                     var token = usersViewModel.getToken(1)
+                    Log.println(Log.INFO,null,"ERROR "+token)
                     headers["Authorization"] = "Bearer "+token
                     return headers
                 }
@@ -215,27 +219,20 @@ class RequestHttp {
             queue.add(req)
         }
 
-        fun getAllAirports(context: Context, airportList:ArrayList<Reservations>,recyclerView: RecyclerView){
+        fun createReservation(context: Context,usersViewModel: UsersViewModel,id_vuelo:String){
 
             // new Volley newRequestQueue
             val queue = Volley.newRequestQueue(context)
-            val url = URL+"/api/all/airports"
-            val updateReq = object : JsonArrayRequest(
-                Request.Method.GET, url, null,
+            val url = URL+"/create_reservations/"+usersViewModel.getUserId(1)+"/"+id_vuelo
+            val updateReq = object : StringRequest(
+                Request.Method.GET, url,
                 Response.Listener {
-                    var array=it
-                    for (i in 0 until array.length()) {
-                        val airport = array.getJSONObject(i)
-                        airportList.add(Reservations(airport.getString("name"),airport.getString("country")))
-
-                        Log.println(Log.INFO,null,"AIRPORT "+airport.getString("name")+airport.getString("country")+airport.getString("city"))
-                    }
-                    //4º) Asigno al RecyclerView el adaptador que relaciona a cada item con su objeto a mostrar.
-                    val studentsAdapter = ReservationsAdapter(airportList, context)
-                    recyclerView.setAdapter(studentsAdapter)
+                    Log.println(Log.INFO,null,"guardado "+it)
+                    val intent = Intent(context, SearchActivity::class.java)
+                    context.startActivity(intent)
                 },
                 Response.ErrorListener {
-                    Toast.makeText(context, "Error al obtener las reservas", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Error al crear la reserva", Toast.LENGTH_SHORT).show()
                 }
             ){}
 
@@ -243,24 +240,23 @@ class RequestHttp {
 
         }
 
-        fun getAllFlights(context: Context,flightList:ArrayList<Reservations>,recyclerView: RecyclerView){
+        fun getAllFlights(context: Context,usersViewModel: UsersViewModel,flightList:ArrayList<Flights>,recyclerView: RecyclerView,number:String){
 
             // new Volley newRequestQueue
             val queue = Volley.newRequestQueue(context)
-            val url = URL+"/api/all/flights"
+            val url = URL+"/select_flight/"+number
             val updateReq = object : JsonArrayRequest(
                 Request.Method.GET, url, null,
                 Response.Listener {
                     var array=it
                     for (i in 0 until array.length()) {
                         val flights = array.getJSONObject(i)
-                        flightList.add(Reservations(flights.getString("flight_destination"),""))
+                        flightList.add(Flights(flights.getString("destino"),flights.getString("id_vuelo")))
 
-                        Log.println(Log.INFO,null,"Flight "+flights.getString("flight_destination"))
                     }
                     //4º) Asigno al RecyclerView el adaptador que relaciona a cada item con su objeto a mostrar.
-                    val studentsAdapter = ReservationsAdapter(flightList, context)
-                    recyclerView.setAdapter(studentsAdapter)
+                    val flightsAdapter = FlightAdapter(flightList, context,usersViewModel)
+                    recyclerView.setAdapter(flightsAdapter)
                 },
                 Response.ErrorListener {
                     Toast.makeText(context, "Error al devolver los vuelos", Toast.LENGTH_SHORT).show()
@@ -271,28 +267,38 @@ class RequestHttp {
 
         }
 
-        fun getAllReserver(context: Context,reservationList:ArrayList<Reservations>,recyclerView: RecyclerView){
+        fun getAllReserver(context: Context, usersViewModel: UsersViewModel, reservationList:ArrayList<Reservations>, recyclerView: RecyclerView){
 
             //REVISAR SERVIDOR PARA ESTA TABLA, DEBIDO A QUE NO EXITE ACCESO DESDE EL CLIENTE
             // new Volley newRequestQueue
             val queue = Volley.newRequestQueue(context)
-            val url = URL+"/select_reservations/1"
+            val url = URL+"/select_reservations/"+usersViewModel.getUserId(1)
             val updateReq = object : JsonArrayRequest(
                 Request.Method.GET, url, null,
                 Response.Listener {
                     var array=it
                     for (i in 0 until array.length()) {
                         val reserve = array.getJSONObject(i)
-                        reservationList.add(Reservations(reserve.getString("name"),reserve.getString("country")))
+                        reservationList.add(
+                            Reservations(
+                                reserve.getString("origen"),
+                                reserve.getString("destino"),
+                                reserve.getString("fecha de salida"),
+                                reserve.getString("fecha de llegada")
+                            )
+                        )
 
-                        Log.println(Log.INFO,null,"AIRPORT "+reserve.getString("name"))
                     }
                     //4º) Asigno al RecyclerView el adaptador que relaciona a cada item con su objeto a mostrar.
-                    val studentsAdapter = ReservationsAdapter(reservationList, context)
-                    recyclerView.setAdapter(studentsAdapter)
+                    val reservationsAdapter =
+                        ReservationsAdapter(
+                            reservationList,
+                            context
+                        )
+                    recyclerView.setAdapter(reservationsAdapter)
                 },
                 Response.ErrorListener {
-                    Toast.makeText(context, "Error of authentication", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Error al obtener las reservas", Toast.LENGTH_SHORT).show()
                 }
             ){}
 
