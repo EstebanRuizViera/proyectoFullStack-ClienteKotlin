@@ -32,7 +32,7 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre" />
+            android:text="@string/name_register" />
 
         <EditText
             android:id="@+id/name_editText"
@@ -45,7 +45,7 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Apellido" />
+            android:text="@string/lastname_register" />
 
         <EditText
             android:id="@+id/lastname_editText"
@@ -58,7 +58,7 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dni" />
+            android:text="@string/dni_register" />
 
         <EditText
             android:id="@+id/dni_editText"
@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Telefono" />
+            android:text="@string/phone_register" />
 
         <EditText
             android:id="@+id/phone_edtiText"
@@ -85,7 +85,7 @@
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email" />
+            android:text="@string/email_register" />
 
         <EditText
             android:id="@+id/email_editText"
@@ -98,7 +98,7 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password" />
+            android:text="@string/password_register" />
 
         <EditText
             android:id="@+id/password_editText"

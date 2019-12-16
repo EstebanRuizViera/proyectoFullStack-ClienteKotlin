@@ -11,7 +11,9 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_edit_user.*
 import kotlinx.android.synthetic.main.activity_search.*
+import kotlinx.android.synthetic.main.activity_search.toolbar
 
 
 class SearchActivity : AppCompatActivity() {
@@ -20,6 +22,8 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+        setSupportActionBar(toolbar);
 
         val b = Bundle()
 
@@ -91,6 +95,9 @@ class SearchActivity : AppCompatActivity() {
         var opcion1 = menu.findItem(R.id.information_menu);
         opcion1.setEnabled(true);
 
+        var opcion2 = menu.findItem(R.id.configuration_menu);
+        opcion2.setEnabled(true);
+
         return true;
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -100,16 +107,12 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
-        if (id == R.id.navigation_search) {
+        if (id == R.id.information_menu) {
             val b = Intent(this, SearchActivity::class.java)
             startActivity(b)
             return true
-        } else if (id == R.id.navigation_my_flight) {
-            val b = Intent(this, MyFlightActivity::class.java)
-            startActivity(b)
-            return true
-        }else if (id == R.id.navigation_user) {
-            val b = Intent(this, LoginActivity::class.java)
+        } else if (id == R.id.configuration_menu) {
+            val b = Intent(this, ConfigurationActivity::class.java)
             startActivity(b)
             return true
         }

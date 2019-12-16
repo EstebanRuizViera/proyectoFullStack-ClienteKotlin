@@ -3,6 +3,7 @@ package com.example.flight
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.flight.reciclerView.Reservations
 import com.example.pruebaslogin.UsersViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_edit_user.*
 
 class MyFlightActivity : AppCompatActivity() {
 
@@ -18,6 +20,8 @@ class MyFlightActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_flight)
+
+        setSupportActionBar(toolbar);
 
         usersViewModel = run {
             ViewModelProviders.of(this).get(UsersViewModel::class.java)
@@ -50,6 +54,36 @@ class MyFlightActivity : AppCompatActivity() {
                 return false
             }
         })
+    }
+
+    override fun onPrepareOptionsMenu(menu : Menu):Boolean {
+        //Se accede al ítem usando el id que
+        //tiene dentro del menú directamente
+        var opcion1 = menu.findItem(R.id.information_menu);
+        opcion1.setEnabled(true);
+
+        var opcion2 = menu.findItem(R.id.configuration_menu);
+        opcion2.setEnabled(true);
+
+        return true;
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.three_dots_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == R.id.information_menu) {
+            val b = Intent(this, SearchActivity::class.java)
+            startActivity(b)
+            return true
+        } else if (id == R.id.configuration_menu) {
+            val b = Intent(this, ConfigurationActivity::class.java)
+            startActivity(b)
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {

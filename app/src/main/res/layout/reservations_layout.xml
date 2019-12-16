@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="Origen"
+            android:text="@string/origin_my_flight"
             android:textStyle="bold" />
 
         <TextView
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="Destino"
+            android:text="@string/destiny"
             android:textStyle="bold" />
 
         <TextView
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="Fecha de ida"
+            android:text="@string/departure_date"
             android:textStyle="bold" />
 
         <TextView
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="Fecha de vuelta"
+            android:text="@string/return_date"
             android:textStyle="bold" />
 
         <TextView

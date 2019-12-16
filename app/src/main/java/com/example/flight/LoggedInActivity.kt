@@ -9,7 +9,10 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.example.pruebaslogin.UsersViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_edit_user.*
 import kotlinx.android.synthetic.main.activity_logged_in.*
+import kotlinx.android.synthetic.main.activity_logged_in.lastname_editText
+import kotlinx.android.synthetic.main.activity_logged_in.toolbar
 
 class LoggedInActivity : AppCompatActivity() {
 
@@ -18,6 +21,8 @@ class LoggedInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_logged_in)
+
+        setSupportActionBar(toolbar);
 
         usersViewModel = run {
             ViewModelProviders.of(this).get(UsersViewModel::class.java)
@@ -58,28 +63,27 @@ class LoggedInActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu : Menu):Boolean {
         //Se accede al ítem usando el id que
         //tiene dentro del menú directamente
-        var opcion1 = menu.findItem(R.id.navigation_my_flight);
+        var opcion1 = menu.findItem(R.id.information_menu);
         opcion1.setEnabled(true);
+
+        var opcion2 = menu.findItem(R.id.configuration_menu);
+        opcion2.setEnabled(true);
 
         return true;
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.bottom_nav_menu, menu)
+        menuInflater.inflate(R.menu.three_dots_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
-        if (id == R.id.navigation_search) {
+        if (id == R.id.information_menu) {
             val b = Intent(this, SearchActivity::class.java)
             startActivity(b)
             return true
-        } else if (id == R.id.navigation_my_flight) {
-            val b = Intent(this, MyFlightActivity::class.java)
-            startActivity(b)
-            return true
-        }else if (id == R.id.navigation_user) {
-            val b = Intent(this, LoginActivity::class.java)
+        } else if (id == R.id.configuration_menu) {
+            val b = Intent(this, ConfigurationActivity::class.java)
             startActivity(b)
             return true
         }

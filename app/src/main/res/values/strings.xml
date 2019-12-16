@@ -13,13 +13,12 @@
     <string name="tab_3">Profile</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="origin">Origen</string>
-    <string name="destiny">Destino</string>
-    <string name="departure_date">Fecha de ida</string>
-    <string name="return_date">Fecha de vuelta</string>
-    <string name="one_way">Solo ida</string>
-    <string name="search_flight">Buscar vuelo</string>
+    <string name="origin">Origin</string>
+    <string name="destiny">Destiny</string>
+    <string name="departure_date">Departure date</string>
+    <string name="return_date">Arrival date</string>
+    <string name="one_way">one way</string>
+    <string name="search_flight">Search flight</string>
     <string name="logout_text">You have not logged in?</string>
     <string name="logout_question_text">Do we start? </string>
     <string name="login_text">Login</string>
@@ -34,12 +33,22 @@
     <string name="login_button">login</string>
     <string name="register_button">Register</string>
     <string name="register_text_login">Don\'t have an account?</string>
-    <string name="register2_text_login">Signup here</string>
+    <string name="register2_text_login">Sign up here</string>
     <string name="register_accept_button">register</string>
     <string name="configuration_button_menu">Configuration</string>
     <string name="information_button_menu">About</string>
     <string name="update_data_user_button">update</string>
     <string name="logout_button">Log out</string>
+    <string name="name_register">Name</string>
+    <string name="lastname_register">Lastname</string>
+    <string name="dni_register">Dni</string>
+    <string name="phone_register">Telephone</string>
+    <string name="email_register">Email</string>
+    <string name="password_register">Password</string>
+    <string name="origin_my_flight">Origin</string>
+    <string name="change_language">Change language :</string>
+    <string name="english_language">English</string>
+    <string name="spanish_languaje">Spanish</string>
 
     <string-array name="brew_array">
         <item>Madrid</item>

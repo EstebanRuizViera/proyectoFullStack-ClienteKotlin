@@ -18,7 +18,7 @@
             android:layout_marginRight="30dp"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="Origen"
+            android:text="@string/origin_my_flight"
             android:textStyle="bold" />
 
         <TextView

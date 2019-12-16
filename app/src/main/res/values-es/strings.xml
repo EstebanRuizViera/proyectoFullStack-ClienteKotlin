@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vuelos</string>
+    <string name="login_email">Correo :</string>
+    <string name="login_password">Contraseña :</string>
+    <string name="title_activity_principal_menu">Menu principal</string>
+    <string name="title_search">Buscar</string>
+    <string name="title_my_flight">Mis vuelos</string>
+    <string name="title_profile">Perfil</string>
+    <string name="title_register">Registrarte</string>
+    <string name="title_edit">Editar información</string>
+    <string name="tab_1">Buscar</string>
+    <string name="tab_2">Mis vuelos</string>
+    <string name="tab_3">Perfil</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="origin">Origen</string>
+    <string name="destiny">Destino</string>
+    <string name="departure_date">Fecha de ida</string>
+    <string name="return_date">Fecha de vuelta</string>
+    <string name="one_way">Solo ida</string>
+    <string name="search_flight">Buscar vuelo</string>
+    <string name="logout_text">¿Estas seguro?</string>
+    <string name="logout_question_text">¿Comenzamos? </string>
+    <string name="login_text">Iniciar sesion</string>
+    <string name="register_text">Registrarte</string>
+    <string name="edit_user">Editar</string>
+    <string name="delete_user">Borrar</string>
+    <string name="name_user">Nombre</string>
+    <string name="last_name_user">Apellido</string>
+    <string name="dni_user">DNI</string>
+    <string name="telephone_user">Telefono</string>
+    <string name="email_user">Correo</string>
+    <string name="login_button">Iniciar sesion</string>
+    <string name="register_button">Registrate</string>
+    <string name="register_text_login">¿Todavia no tienes cuenta?</string>
+    <string name="register2_text_login">Registrate aqui</string>
+    <string name="register_accept_button">registrarse</string>
+    <string name="configuration_button_menu">Configuracion</string>
+    <string name="information_button_menu">Informacion</string>
+    <string name="update_data_user_button">actualizar</string>
+    <string name="logout_button">Cerrar sesion</string>
+    <string name="name_register">Nombre</string>
+    <string name="lastname_register">Apellidos</string>
+    <string name="dni_register">Dni</string>
+    <string name="phone_register">Telefono</string>
+    <string name="email_register">Correo</string>
+    <string name="password_register">Contraseña</string>
+    <string name="origin_my_flight">Origen</string>
+    <string name="change_language">Cambiar idioma :</string>
+    <string name="english_language">Ingles</string>
+    <string name="spanish_languaje">Español</string>
+
+    <string-array name="brew_array">
+        <item>Madrid</item>
+        <item>Canarias</item>
+        <item>Lisboa</item>
+        <item>Oporto</item>
+    </string-array>
+</resources>
